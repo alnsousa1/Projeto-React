@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";//navegar uma pagina a outra sem reaload
 
-interface INavBarContainer {
-    extendNavBar: boolean;
-}
+  interface INavbarContainer {
+    extendNavbar: boolean;
+  }
 
-export const NavbarContainer = styled.nav<INavBarContainer>`
+export const NavbarContainer = styled.nav<INavbarContainer>`
   width: 100%;
-  height: ${(props: any) => (props.extendNavbar ? "100vh" : "80px")};
+  height: ${(props) => (props.extendNavbar ? "100vh" : "80px")};
   background-color: var(--black);
   display: flex;
   flex-direction: column;
