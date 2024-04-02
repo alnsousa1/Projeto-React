@@ -1,8 +1,10 @@
+import { Menu } from "../../components/Menu"
 import { FormContainer } from "./styles"
 
 export const Contato = () => {
     return (
         <>
+        <Menu />
             <body>
                 <FormContainer>
                     <div>

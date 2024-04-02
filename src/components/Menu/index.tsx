@@ -48,6 +48,7 @@ export const Menu = () => {
                                 1Pitchau
                             </NavbarLinkExtended>
                             <NavbarLink to={'/'}>Home</NavbarLink>
+                            <NavbarLink to={'/contato'}>Contato</NavbarLink>
                             {
 
                                 dataMenu.map((menu) => {
