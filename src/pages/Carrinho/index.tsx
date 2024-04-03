@@ -42,7 +42,8 @@ export const Carrinho = () => {
                 <Td>1,000,50</Td>
                 <Td>
                   <Button
-                  type="button">
+                  type="button"
+                  >
                     <TextButton>
                       <FaTrash />
                     </TextButton>
@@ -50,7 +51,34 @@ export const Carrinho = () => {
                 </Td>
               </TBTr>
             </tbody>
+            <tfoot>
+              <TBTr>
+                <Td width={300}>Valor Total:</Td>
+                <Td></Td>
+                <Td></Td>
+                <Td>1.000.50</Td>
+                <Td></Td>
+              </TBTr>
+            </tfoot>
         </Table>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between'
+          }}
+        >
+          <Button
+          type="button"
+          >
+            <TextButton>Limpar Carrinho</TextButton>
+            </Button>
+            <Button
+              type="button"
+              bgColor="green"            
+            >
+              <TextButton>Finalizar Pedido</TextButton>
+          </Button>
+        </div>
       </div>
     </>
   )
