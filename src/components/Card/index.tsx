@@ -21,8 +21,8 @@ export const Card= (props: IProps) => {
         <CardBody>
               <img src={props.imagemp} alt="" />
               <Title>{props.title}</Title>
-              <TitlePreco>{props.price}</TitlePreco>
-              <TextPromo>{props.promo}</TextPromo>
+              <TitlePreco>R${props.price}</TitlePreco>
+              <TextPromo>R${props.promo}</TextPromo>
               <Button 
                 onClick={() => {
                     navigate('/produto/' + props.id)
