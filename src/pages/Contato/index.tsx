@@ -1,7 +1,34 @@
+import { useParams } from "react-router-dom";
 import { Menu } from "../../components/Menu"
 import { FormContainer } from "./styles"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Col4, Col6, Row } from "../Produtos/styles";
 
 export const Contato = () => {
+
+    interface IContatos{
+        id: number;
+        nome: string;
+        telefone: number;
+        email: string;
+        cidade: string;
+        observacao: string;
+    }
+
+    const { id } = useParams()
+
+    const [contato, setContato] = useState<IContatos>()
+
+    useEffect(() => {
+        axios.get('https://localhost:3000/contato?id=' + id).then((dados)=> {
+            setContato(dados.data[0])
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }, [id])
+
     return (
         <>
         <Menu />
@@ -33,6 +60,32 @@ export const Contato = () => {
 
                             <button type="submit">Enviar</button>
                         </form>
+
+                        {
+                    contato ?
+                        <>
+                            <h1>Contato</h1>
+                            <Row>
+                                <Col6>
+                                    <h3>{contato.nome}</h3>
+                                </Col6>
+                                <Col6>
+                                    <h3>{contato.telefone}</h3>
+                                </Col6>
+                                <Col6>
+                                    <h3>{contato.email}</h3>
+                                </Col6>
+                                <Col6>
+                                    <h3>{contato.cidade}</h3>
+                                </Col6>
+                                <Col6>
+                                    <h3>{contato.observacao}</h3>
+                                </Col6>
+                            </Row>
+                        </>
+                        :
+                        <h2>Nenhum contato encontrado!</h2>
+                }
                     </div>
                 </FormContainer>
             </body>

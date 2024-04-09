@@ -29,6 +29,10 @@ export const Rotas = () => {
           path='/contato'
           element={<Contato />}
         />
+        <Route
+          path='/contato/:id'
+          element={<Contato />}
+        />
       </Routes>
     </BrowserRouter>
   )
