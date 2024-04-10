@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Menu } from "../../components/Menu"
 import { Button, Col4, Col6, Input, Row, TextButton } from "./styles"
-import { useEffect, useState } from "react"
+import { SyntheticEvent, useCallback, useEffect, useState } from "react"
 import axios from "axios"
+import { ICarrinho } from "../../@types/interfaces"
 export const Produtos = () => {
 
     interface IProdutos {
@@ -17,6 +18,7 @@ export const Produtos = () => {
 
     //importando o parametro ID que veio da rota
     const { id } = useParams()
+    const navigate = useNavigate()
 
     const [produto, setProduto] = useState<IProdutos>()
 
@@ -33,6 +35,50 @@ export const Produtos = () => {
                 console.log(err)
             })
     }, [id])
+
+    // SyntheticEvent serve para tipar o envio do formulario
+    const onSubmit = useCallback((e: SyntheticEvent) => {
+        e.preventDefault();
+
+        //tipando os inputs do formulario
+        const target = e.target as typeof e.target & {
+            quantidade: { value: number }
+        }
+
+        if (produto) {
+            let qtd = target.quantidade.value
+
+            if (qtd > 0) {
+                let objProduto = {
+                    ...produto,
+                    quantidade: qtd,
+                    total: Number(produto.promo) * qtd
+                }
+                //localStorage, é uma memoria do navegador que a gente consegue add valores para utilizar no site, ex: produtos, tokens, dados do usuario
+                let lsCarrinho = localStorage.getItem('@1pitchau:carrinho')
+
+                //inserindo no meu localStorage um Array. Ou ele nao vai ter nada ou ele vai ser um Array
+                let carrinho: Array<ICarrinho> = []
+
+                //verificando se ja tenho um localStorage, se eu tiver, eu seto ele na minha variavel carrinho na lonha 60
+                if(typeof lsCarrinho === 'string'){
+                    carrinho = JSON.parse(lsCarrinho)
+                }
+
+                if(carrinho.length > 0){
+
+                    carrinho.push(objProduto)
+                    //convertendo meu array de produtos, ou seja, meu carrinho, pra json, ou seja, pra string, pq o localStorage nao deixa salvar array dentro dele
+                    localStorage.setItem('@1pitchau:carrinho', JSON.stringify(carrinho))
+                }else{
+                    localStorage.setItem('@1pitchau:carrinho', JSON.stringify([objProduto]))
+                }
+
+                navigate('/carrinho')
+            }
+        }
+
+    }, [produto])
 
     return (
         //abrindo o fragment
@@ -76,7 +122,9 @@ export const Produtos = () => {
                                         }}
                                     >R${produto.promo}</p>
 
-                                    <form>
+                                    <form
+                                        onSubmit={onSubmit}
+                                    >
                                         <Input
                                             type="number"
                                             name="quantidade"
@@ -85,7 +133,9 @@ export const Produtos = () => {
                                             required
                                         />
 
-                                        <Button>
+                                        <Button
+                                            type="submit"
+                                        >
                                             <TextButton>
                                                 Adicionar ao Carrinho
                                             </TextButton>
