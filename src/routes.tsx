@@ -7,6 +7,8 @@ import { Home } from './pages/Home'
 import { Carrinho } from './pages/Carrinho'
 import { Contato } from './pages/Contato'
 import { Produtos } from './pages/Produtos'
+import { Lista } from './pages/Lista'
+import { Contatos } from './pages/Contatos'
 
 export const Rotas = () => {
 
@@ -15,7 +17,7 @@ export const Rotas = () => {
       <Routes>
         <Route
           path='/'
-          element={<Home/>}
+          element={<Home />}
         />
         <Route
           path='/carrinho'
@@ -33,6 +35,20 @@ export const Rotas = () => {
           path='/contato/:id'
           element={<Contato />}
         />
+
+        <Route
+          path='/lista'
+          element={<Lista />}
+        />
+        <Route
+          path='/contatos'
+          element={<Contatos />}
+        />
+        <Route
+          path='/contatos/:id'
+          element={<Contatos />}
+        />
+
       </Routes>
     </BrowserRouter>
   )

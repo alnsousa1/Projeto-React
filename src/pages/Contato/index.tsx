@@ -1,33 +1,37 @@
 import { useParams } from "react-router-dom";
 import { Menu } from "../../components/Menu"
 import { FormContainer } from "./styles"
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { Col4, Col6, Row } from "../Produtos/styles";
 
 export const Contato = () => {
 
-    interface IContatos{
-        id: number;
-        nome: string;
-        telefone: number;
-        email: string;
-        cidade: string;
-        observacao: string;
-    }
+    const [nome, setNome] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [email, setEmail] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [areatext, setAreatext] = useState("");
 
-    const { id } = useParams()
+    function criarTarefa(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const id = '';
+    
+        axios.post('http://localhost:3000/contatos', {nome, telefone, email, cidade, areatext })
+          .then((res) => {
+            console.log(res.data);
+            limparCampos();
+          })
+          .catch(err => console.error(err));
+      }
 
-    const [contato, setContato] = useState<IContatos>()
-
-    useEffect(() => {
-        axios.get('https://localhost:3000/contato?id=' + id).then((dados)=> {
-            setContato(dados.data[0])
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-    }, [id])
+      function limparCampos() {
+        setNome("");
+        setTelefone("");
+        setEmail("");
+        setCidade("");
+        setAreatext("");
+      }
 
     return (
         <>
@@ -60,32 +64,6 @@ export const Contato = () => {
 
                             <button type="submit">Enviar</button>
                         </form>
-
-                        {
-                    contato ?
-                        <>
-                            <h1>Contato</h1>
-                            <Row>
-                                <Col6>
-                                    <h3>{contato.nome}</h3>
-                                </Col6>
-                                <Col6>
-                                    <h3>{contato.telefone}</h3>
-                                </Col6>
-                                <Col6>
-                                    <h3>{contato.email}</h3>
-                                </Col6>
-                                <Col6>
-                                    <h3>{contato.cidade}</h3>
-                                </Col6>
-                                <Col6>
-                                    <h3>{contato.observacao}</h3>
-                                </Col6>
-                            </Row>
-                        </>
-                        :
-                        <h2>Nenhum contato encontrado!</h2>
-                }
                     </div>
                 </FormContainer>
             </body>

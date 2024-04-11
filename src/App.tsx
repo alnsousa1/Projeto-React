@@ -1,4 +1,3 @@
-import { ContatosProvider } from './contexts/contatoContext'
 import { Rotas } from './routes'
 import { GlobalStyle } from './styles/global'
 
@@ -9,9 +8,6 @@ function App() {
     <>
     <GlobalStyle></GlobalStyle>
       <Rotas />
-      <ContatosProvider>
-        
-      </ContatosProvider>
     </>
   )
 }
