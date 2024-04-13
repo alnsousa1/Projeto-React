@@ -48,6 +48,7 @@ export const Menu = () => {
                                 1Pitchau
                             </NavbarLinkExtended>
                             <NavbarLink to={'/'}>Home</NavbarLink>
+                            <NavbarLink to={'/lista'}>Lista de Contatos</NavbarLink>
                             <NavbarLink to={'/contato'}>Contato</NavbarLink>
                             {
 

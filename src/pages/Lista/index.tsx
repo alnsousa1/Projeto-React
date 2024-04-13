@@ -19,6 +19,7 @@ export const Lista = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("aqui");
     axios.get('http://localhost:3000/contatos')
       .then((res) => {
         setDataLista(res.data);
@@ -43,7 +44,7 @@ export const Lista = () => {
         <Table>
           <thead>
             <THtr>
-              <THTh>Nomes do Cliente</THTh>
+              <THTh>Nome dos Clientes</THTh>
               <THTh></THTh>
               <THTh></THTh>
             </THtr>
